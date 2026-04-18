@@ -6,6 +6,8 @@ namespace Database\SoftDelete\DependencyInjection;
 
 use Database\SoftDelete\Doctrine\ORM\DoctrineSoftDeleteFilter;
 use Database\SoftDelete\Doctrine\Schema\SoftDeleteSchemaManagerFactory;
+use Database\SoftDelete\Doctrine\Schema\SoftDeleteSchemaProvider;
+use Doctrine\Migrations\Provider\SchemaProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -37,6 +39,12 @@ class SoftDeleteExtension extends Extension implements PrependExtensionInterface
                         'enabled' => true,
                     ],
                 ],
+            ],
+        ]);
+
+        $container->prependExtensionConfig('doctrine_migrations', [
+            'services' => [
+                SchemaProvider::class => SoftDeleteSchemaProvider::class,
             ],
         ]);
     }
