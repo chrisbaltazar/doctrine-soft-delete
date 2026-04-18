@@ -1,10 +1,14 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    Database\SoftDelete\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/SoftDeleteBundle.php'
+  Database\SoftDelete\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/SoftDeleteBundle.php'
+
+  Doctrine\Migrations\Provider\SchemaProvider:
+    class: Database\SoftDelete\Doctrine\Schema\SoftDeleteSchemaProvider
+    autowire: true

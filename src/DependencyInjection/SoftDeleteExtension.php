@@ -44,7 +44,7 @@ class SoftDeleteExtension extends Extension implements PrependExtensionInterface
 
         $container->prependExtensionConfig('doctrine_migrations', [
             'services' => [
-                SchemaProvider::class => SoftDeleteSchemaProvider::class,
+                'Doctrine\Migrations\Provider\SchemaProvider' => SoftDeleteSchemaProvider::class,
             ],
         ]);
     }
