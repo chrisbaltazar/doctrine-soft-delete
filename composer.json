@@ -12,7 +12,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Datatabase\\SoftDelete\\": "src/"
+            "Database\\SoftDelete\\": "src/"
         }
     },
     "authors": [
