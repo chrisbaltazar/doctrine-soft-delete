@@ -1,0 +1,23 @@
+{
+    "name": "chrisbaltazar/doctrine-soft-delete",
+    "description": "Symfony Bundle to handle Soft deleted records with Doctrine",
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=8.1",
+        "symfony/framework-bundle": "^6.4",
+        "doctrine/doctrine-bundle": "^2.18",
+        "doctrine/orm": "^3.6",
+        "doctrine/doctrine-migrations-bundle": "^3.7"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Datatabase\\SoftDelete\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Chris Baltazar"
+        }
+    ]
+}
