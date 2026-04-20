@@ -4,7 +4,8 @@ build:
 
 start:
 	@echo "Starting the container..."
-	docker run -d --name doctrine-soft-delete doctrine-soft-delete
+	-docker rm -f doctrine-soft-delete
+	docker run --rm -d --name doctrine-soft-delete -v "./:/app" doctrine-soft-delete
 
 shell:
 	@echo "Accessing the container shell..."
