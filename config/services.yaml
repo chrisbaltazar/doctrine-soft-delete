@@ -9,6 +9,7 @@ services:
       - '../src/DependencyInjection/'
       - '../src/SoftDeleteBundle.php'
 
-  Doctrine\Migrations\Provider\SchemaProvider:
-    class: Database\SoftDelete\Doctrine\Schema\SoftDeleteSchemaProvider
-    autowire: true
+  Database\SoftDelete\Doctrine\Schema\SoftDeleteSchemaProvider:
+    factory: '@Database\SoftDelete\Core\Factory\SoftDeleteSchemaProviderFactory'
+
+  

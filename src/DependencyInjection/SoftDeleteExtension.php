@@ -20,17 +20,16 @@ class SoftDeleteExtension extends Extension implements PrependExtensionInterface
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.yaml');
-
-        if (!$container->hasParameter('doctrine.dbal.schema_manager_factory')) {
-            $container->setParameter(
-                'doctrine.dbal.schema_manager_factory',
-                SoftDeleteSchemaManagerFactory::class,
-            );
-        }
     }
 
     public function prepend(ContainerBuilder $container)
     {
+        $container->prependExtensionConfig('doctrine', [
+            'dbal' => [
+                'schema_manager_factory' => SoftDeleteSchemaManagerFactory::class,
+            ],
+        ]);
+
         $container->prependExtensionConfig('doctrine', [
             'orm' => [
                 'filters' => [
@@ -44,7 +43,7 @@ class SoftDeleteExtension extends Extension implements PrependExtensionInterface
 
         $container->prependExtensionConfig('doctrine_migrations', [
             'services' => [
-                'Doctrine\Migrations\Provider\SchemaProvider' => SoftDeleteSchemaProvider::class,
+                SchemaProvider::class => SoftDeleteSchemaProvider::class,
             ],
         ]);
     }
