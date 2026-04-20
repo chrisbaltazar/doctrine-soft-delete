@@ -37,6 +37,16 @@ Instead of permanently deleting rows, soft-delete marks records with a `deleted_
 composer require chrisbaltazar/doctrine-soft-delete
 ```
 
+Please make sure the bundle gets registered in your `config/bundles.php`:
+(normally handled by Symfony Flex)
+
+```php
+return [
+    // ...
+    Database\SoftDelete\SoftDeleteBundle::class => ['all' => true],
+];
+```
+
 ## Usage
 
 To auto enable the _soft delete_ function, simply implement the `SoftDeletableInterface` in your entity and add a nullable `deletedAt` property:
