@@ -1,0 +1,25 @@
+services:
+  app:
+    image: chrisbaltazar/symfony-php-8.1
+    container_name: doctrine-soft-delete-demo-app
+    restart: unless-stopped
+    volumes:
+      - ./demo:/var/www/html
+      - ./composer.json:/var/www/doctrine-soft-delete/composer.json:ro
+      - ./src:/var/www/doctrine-soft-delete/src
+      - ./config:/var/www/doctrine-soft-delete/config
+    command: symfony server:start --port=8000  --no-tls --allow-http --allow-all-ip --dir=public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.soft-delete-demo.rule=Host(`soft-delete-demo.localhost`)"
+      - "traefik.http.services.soft-delete-demo.loadbalancer.server.port=8000"
+
+  database:
+    image: mysql:8.0
+    container_name: doctrine-soft-delete-demo-database
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo_soft_delete
+    ports:
+      - "3333:3306"
