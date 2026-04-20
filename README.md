@@ -19,7 +19,13 @@ Instead of permanently deleting rows, soft-delete marks records with a `deleted_
 
 ---
 
-## Requirements
+## Compatibility 
+
+- Symfony 6.4+
+- Doctrine ORM 3.6+
+- MySQL 5.7+ (for generated columns)
+
+## Dependencies
 
 | Dependency                          | Version  |
 |-------------------------------------|----------|
@@ -105,3 +111,4 @@ class User implements SoftDeletableInterface
     // ...
 }
 ```
+After that just generate a new migration as normal and execute it to update your database schema.
