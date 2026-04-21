@@ -1,4 +1,7 @@
 {
+    "chrisbaltazar/doctrine-soft-delete": {
+        "version": "dev-main"
+    },
     "doctrine/deprecations": {
         "version": "1.1",
         "recipe": {
