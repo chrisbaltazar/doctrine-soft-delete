@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Database\SoftDelete\Core\Contract\SoftDeletableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements SoftDeletableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,6 +20,9 @@ class User
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deletedAt = null;
 
     public function getId(): ?int
     {
@@ -47,5 +51,15 @@ class User
         $this->email = $email;
 
         return $this;
+    }
+
+    public function setDeletedAt(\DateTimeImmutable $deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
     }
 }
