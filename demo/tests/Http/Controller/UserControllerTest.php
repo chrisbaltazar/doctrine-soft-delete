@@ -29,19 +29,26 @@ class UserControllerTest extends WebTestCase
     #[Test]
     public function create_user(): void
     {
+        /** @var UserRepository $repository */
+        $repository = self::getContainer()->get(UserRepository::class);
+
+        $this->shouldCreateNewUser(['name' => 'John Doe', 'email' => 'john@test.com']);
+        $this->assertCount(1, $repository->findAll());
+
+        $this->shouldCreateNewUser(['name' => 'Jane Doe', 'email' => 'john@test.com']); // use same email
+        $this->assertCount(2, $repository->findAll());
+    }
+
+    private function shouldCreateNewUser(array $data): void
+    {
         $this->client->request('GET', '/user/new');
         self::assertResponseIsSuccessful();
 
         $this->client->submitForm('Save', [
             'user' => [
-                'name' => 'John Doe',
-                'email' => 'john@test.com',
+                ...$data,
             ],
         ]);
         self::assertResponseRedirects('/user');
-
-        /** @var UserRepository $repository */
-        $repository = self::getContainer()->get(UserRepository::class);
-        $this->assertCount(1, $repository->findAll());
     }
 }
