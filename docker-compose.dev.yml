@@ -1,0 +1,12 @@
+services:
+  dsd-app:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.soft-delete-demo.rule=Host(`soft-delete-demo.localhost`)"
+      - "traefik.http.services.soft-delete-demo.loadbalancer.server.port=8000"
+    networks:
+      - docker-dev
+
+networks:
+    docker-dev:
+        external: true

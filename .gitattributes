@@ -1,0 +1,7 @@
+/demo export-ignore
+/.github export-ignore
+/docker-compose.yml export-ignore
+/Dockerfile export-ignore
+/Makefile export-ignore
+/tests export-ignore
+/.gitignore export-ignore

@@ -14,3 +14,16 @@ shell:
 stop:
 	@echo "Stopping the container..."
 	docker stop doctrine-soft-delete
+
+demo-run:
+	@echo "Running the demo app..."
+	docker compose up -d
+
+demo-run-dev:
+	@echo "Running the demo app..."
+	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+demo-stop:
+	@echo "Stopping the demo app..."
+	docker compose down -v
+
