@@ -10,8 +10,6 @@ services:
       - ./config:/var/www/doctrine-soft-delete/config
       - ./src:/var/www/doctrine-soft-delete/src
     entrypoint: ["/bin/bash", "/entrypoint.sh"]
-    ports:
-      - "8000:8000"
     networks:
       - dsd-network
 
