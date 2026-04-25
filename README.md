@@ -160,4 +160,4 @@ make test
 ```
 
 This will run all PHPUnit tests defined in the `tests/` directory, ensuring that the bundle's functionality is working as expected, 
-ensuring the special order anc conditions needed to properly test the database custom components and the generated column behavior.
+ensuring the special order and conditions needed to properly test the database custom components and the generated column behavior.
