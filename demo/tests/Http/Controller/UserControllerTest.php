@@ -45,6 +45,24 @@ class UserControllerTest extends WebTestCase
         $this->assertCount(1, $repository->findAll());
     }
 
+    #[Test]
+    #[Group('SoftDeleteUnique')]
+    public function soft_delete_unique_records(): void
+    {
+        /** @var UserRepository $repository */
+        $repository = self::getContainer()->get(UserRepository::class);
+
+        $this->shouldCreateNewUser(['name' => 'John Doe', 'email' => 'foo@test.com']);
+        $this->assertCount(1, $repository->findAll());
+
+        $this->shouldCreateNewUser(['name' => 'Jane Doe', 'email' => 'foo@test.com']); // use same email
+        $this->assertCount(1, $repository->findAll()); // No record created
+
+        $user = $repository->findOneBy(['email' => 'foo@test.com']);
+        $this->shouldDeleteUser($user);
+        $this->assertCount(0, $repository->findAll());
+    }
+
     private function shouldCreateNewUser(array $data): void
     {
         $this->client->request('GET', '/user/new');
