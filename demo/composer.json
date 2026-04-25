@@ -106,9 +106,15 @@
             "@cache",
             "bin/phpunit --group SoftDeleteUnique"
         ],
+        "test:no-diff": [
+            "@db:clean",
+            "@db:migrate",
+            "@db:diff",
+            "bin/phpunit --group SoftDeleteNoDiff"
+        ],
         "patch": "git apply --ignore-whitespace tests/Resources/User.patch",
         "db:clean": "bin/console doctrine:database:drop --if-exists --force && bin/console doctrine:database:create",
-        "db:diff": "bin/console doctrine:migrations:diff --no-interaction",
+        "db:diff": "bin/console doctrine:migrations:diff --allow-empty-diff --quiet",
         "db:migrate": "bin/console doctrine:migrations:migrate --no-interaction"
     },
     "conflict": {
