@@ -63,6 +63,14 @@ class UserControllerTest extends WebTestCase
         $this->assertCount(0, $repository->findAll());
     }
 
+    #[Test]
+    #[Group('SoftDeleteNoDiff')]
+    public function soft_delete_no_schema_diff(): void
+    {
+        $migrationFiles = glob(TEST_ROOT_DIR . '/../migrations/*.php');
+        $this->assertCount(2, $migrationFiles);
+    }
+
     private function shouldCreateNewUser(array $data): void
     {
         $this->client->request('GET', '/user/new');
