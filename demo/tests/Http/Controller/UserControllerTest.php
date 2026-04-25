@@ -27,16 +27,25 @@ class UserControllerTest extends WebTestCase
     }
 
     #[Test]
-    public function create_user(): void
+    public function soft_delete_non_unique(): void
     {
         /** @var UserRepository $repository */
         $repository = self::getContainer()->get(UserRepository::class);
 
-        $this->shouldCreateNewUser(['name' => 'John Doe', 'email' => 'john@test.com']);
+        $this->shouldCreateNewUser(['name' => 'John Doe', 'email' => 'foo@test.com']);
         $this->assertCount(1, $repository->findAll());
 
-        $this->shouldCreateNewUser(['name' => 'Jane Doe', 'email' => 'john@test.com']); // use same email
+        $this->shouldCreateNewUser(['name' => 'Jane Doe', 'email' => 'foo@test.com']); // use same email
         $this->assertCount(2, $repository->findAll());
+
+        $user = $repository->findOneBy(['email' => 'foo@test.com']);
+
+        $this->client->request('GET', "/user/{$user->getId()}/edit");
+        self::assertResponseIsSuccessful();
+
+        $this->client->submitForm('Delete');
+        self::assertResponseRedirects('/user');
+        $this->assertCount(1, $repository->findAll());
     }
 
     private function shouldCreateNewUser(array $data): void
