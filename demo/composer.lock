@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "../doctrine-soft-delete",
-                "reference": "9ca96076528f995a629b7149fa3109755cd8bbc6"
+                "reference": "758796a6557555ea44faf54f1091a1380097383a"
             },
             "require": {
                 "doctrine/doctrine-bundle": "^2.18",
@@ -26,6 +26,11 @@
                 "psr-4": {
                     "Database\\SoftDelete\\": "src/"
                 }
+            },
+            "scripts": {
+                "diff": [
+                    "git -C demo diff --relative > demo/tests/Resources/$1"
+                ]
             },
             "license": [
                 "MIT"
