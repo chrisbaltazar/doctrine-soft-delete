@@ -12,18 +12,18 @@ $application = new Application($kernel);
 $application->setAutoExit(false);
 
 // Drop database if exists
-//$application->run(new ArrayInput([
-//    'command' => 'doctrine:database:drop',
-//    '--env' => 'test',
-//    '--force' => true,
-//    '--if-exists' => true,
-//]), new NullOutput());
-//
-//// Create database
-//$application->run(new ArrayInput([
-//    'command' => 'doctrine:database:create',
-//    '--env' => 'test',
-//]), new NullOutput());
+$application->run(new ArrayInput([
+    'command' => 'doctrine:database:drop',
+    '--env' => 'test',
+    '--force' => true,
+    '--if-exists' => true,
+]), new NullOutput());
+
+// Create database
+$application->run(new ArrayInput([
+    'command' => 'doctrine:database:create',
+    '--env' => 'test',
+]), new NullOutput());
 
 // Create schema
 $application->run(new ArrayInput([

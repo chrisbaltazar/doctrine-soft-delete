@@ -34,11 +34,11 @@ final class UserController extends AbstractController
             try {
                 $entityManager->persist($user);
                 $entityManager->flush();
-
-                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
             } catch (UniqueConstraintViolationException) {
                 $this->addFlash('error', 'A user with this email already exists.');
             }
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/new.html.twig', [
