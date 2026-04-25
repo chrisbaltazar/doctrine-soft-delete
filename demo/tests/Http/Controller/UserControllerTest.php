@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Http\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -39,12 +40,7 @@ class UserControllerTest extends WebTestCase
         $this->assertCount(2, $repository->findAll());
 
         $user = $repository->findOneBy(['email' => 'foo@test.com']);
-
-        $this->client->request('GET', "/user/{$user->getId()}/edit");
-        self::assertResponseIsSuccessful();
-
-        $this->client->submitForm('Delete');
-        self::assertResponseRedirects('/user');
+        $this->shouldDeleteUser($user);
         $this->assertCount(1, $repository->findAll());
     }
 
@@ -58,6 +54,15 @@ class UserControllerTest extends WebTestCase
                 ...$data,
             ],
         ]);
+        self::assertResponseRedirects('/user');
+    }
+
+    private function shouldDeleteUser(User $user): void
+    {
+        $this->client->request('GET', "/user/{$user->getId()}/edit");
+        self::assertResponseIsSuccessful();
+
+        $this->client->submitForm('Delete');
         self::assertResponseRedirects('/user');
     }
 }
