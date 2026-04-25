@@ -90,8 +90,21 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "bin/console c:c -e test && bin/phpunit",
-        "patch": "git apply --ignore-whitespace tests/Resources/User.patch"
+        "cache": "bin/console c:c -e test",
+        "test:smoke": [
+            "@cache",
+            "bin/phpunit --group SoftDeleteSmoke"
+        ],
+        "test:unique": [
+            "@patch",
+            "@db:diff",
+            "@db:migrate",
+            "@cache",
+            "bin/phpunit --group SoftDeleteUnique"
+        ],
+        "patch": "git apply --ignore-whitespace tests/Resources/User.patch",
+        "db:diff": "bin/console doctrine:migrations:diff --no-interaction",
+        "db:migrate": "bin/console doctrine:migrations:migrate --no-interaction"
     },
     "conflict": {
         "symfony/symfony": "*"

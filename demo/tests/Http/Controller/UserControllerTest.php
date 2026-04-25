@@ -28,6 +28,7 @@ class UserControllerTest extends WebTestCase
     }
 
     #[Test]
+    #[Group('SoftDeleteSmoke')]
     public function soft_delete_non_unique(): void
     {
         /** @var UserRepository $repository */
