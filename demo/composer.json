@@ -96,10 +96,12 @@
             "bin/phpunit --group SoftDeleteSmoke"
         ],
         "test:unique": [
+            "@db:clean",
+            "@db:migrate",
             "@patch",
-            "db:clean",
             "@db:diff",
             "@cache",
+            "@db:migrate",
             "bin/phpunit --group SoftDeleteUnique"
         ],
         "patch": "git apply --ignore-whitespace tests/Resources/User.patch",
