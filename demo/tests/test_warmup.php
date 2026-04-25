@@ -27,8 +27,7 @@ $application->run(new ArrayInput([
 
 // Create schema
 $application->run(new ArrayInput([
-    'command' => 'doctrine:schema:create',
-    '--env' => 'test',
+    'command' => 'doctrine:migrations:migrate --no-interaction',
 ]), new NullOutput());
 
 // Load fixtures

@@ -99,7 +99,6 @@
             "@patch",
             "@db:diff",
             "@cache",
-            "@db:migrate",
             "bin/phpunit --group SoftDeleteUnique"
         ],
         "patch": "git apply --ignore-whitespace tests/Resources/User.patch",
