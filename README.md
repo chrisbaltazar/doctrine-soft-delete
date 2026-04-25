@@ -117,6 +117,24 @@ class User implements SoftDeletableInterface
 ```
 After that just generate a new migration as normal and execute it to update your database schema.
 
+Then simply handle the unique constraint violation properly as the following example: 
+
+```php
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+... 
+// Perform form validation and any other necessary checks before attempting to persist the user entity
+...
+ 
+try {
+    $entityManager->persist($user);
+    $entityManager->flush();
+} catch (UniqueConstraintViolationException) {
+    $this->addFlash('error', 'A user with this email already exists.');
+}
+
+// Continue with the rest of your controller logic, such as rendering a response or redirecting the user
+```
+
 ## Demo 
 
 A demo Symfony application is available in the `demo/` directory of this repository, showcasing the bundle's features in action. 
