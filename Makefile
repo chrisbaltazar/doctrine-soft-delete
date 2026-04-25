@@ -35,6 +35,6 @@ test:
 	@echo "Running SoftDeleteNoDiff tests (No diff is generated in the schema as expected)..."
 	docker compose exec dsd-app composer test:no-diff
 	@echo "Restoring project files to their original state..."
-	git clean -fd
+	git restore . && git clean -fd
 
 
