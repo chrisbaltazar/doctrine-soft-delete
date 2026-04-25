@@ -3,13 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Database\SoftDelete\Core\Attribute\SoftDeleteUniqueIndex;
 use Database\SoftDelete\Core\Contract\SoftDeletableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[SoftDeleteUniqueIndex(fields: ['email'])]
 class User implements SoftDeletableInterface
 {
     #[ORM\Id]
