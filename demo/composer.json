@@ -92,6 +92,8 @@
         ],
         "cache": "bin/console c:c -e test",
         "test:smoke": [
+            "@db:clean",
+            "@db:migrate",
             "@cache",
             "bin/phpunit --group SoftDeleteSmoke"
         ],
@@ -100,8 +102,8 @@
             "@db:migrate",
             "@patch",
             "@db:diff",
-            "@cache",
             "@db:migrate",
+            "@cache",
             "bin/phpunit --group SoftDeleteUnique"
         ],
         "patch": "git apply --ignore-whitespace tests/Resources/User.patch",
