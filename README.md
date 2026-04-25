@@ -94,11 +94,15 @@ To include them, you can disable the filter at any point during your request flo
 
 ```php
 $entityManager->getFilters()->disable('soft_delete');
+... 
+$users = $entityManager->getRepository(User::class)->findAll(); // includes soft-deleted records
 ``` 
 
 ### Unique soft-deletable records
 
-For unique indexes that should ignore soft-deleted records, use the `#[SoftDeleteUniqueIndex]` attribute:
+For unique items that should ignore soft-deleted records, use the `#[SoftDeleteUniqueIndex]` attribute:
+This will create an auto-generated column in your entity table as a boolean flag + a table index, 
+that would control the uniqueness behavior of the specified fields, ignoring soft-deleted records (where `deleted_at` is not null).
 
 ```php
 use Database\SoftDelete\Core\Attribute\SoftDeleteUniqueIndex;
@@ -112,3 +116,48 @@ class User implements SoftDeletableInterface
 }
 ```
 After that just generate a new migration as normal and execute it to update your database schema.
+
+Then simply handle the unique constraint violation properly as the following example: 
+
+```php
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+... 
+// Perform form validation and any other necessary checks before attempting to persist the user entity
+...
+ 
+try {
+    $entityManager->persist($user);
+    $entityManager->flush();
+} catch (UniqueConstraintViolationException) {
+    $this->addFlash('error', 'A user with this email already exists.');
+}
+
+// Continue with the rest of your controller logic, such as rendering a response or redirecting the user
+```
+
+## Demo 
+
+A demo Symfony application is available in the `demo/` directory of this repository, showcasing the bundle's features in action. 
+To run the demo locally just use the handy commands available in the `Makefile`:
+
+(Make sure you have already a docker environment well configured with `docker-compose` and `Make` installed on your machine)
+
+```bash
+make demo-run
+```
+
+After that you should be able to access the demo app at `http://localhost:8000` and see how soft-deleted records are handled in the UI.
+(the port number can be also customized in the `docker-compose.override.yml` file if needed)
+
+Then just go over: `http://localhost:8000/user` and try it out as any other CRUD 🚀  
+
+## Testing 
+
+To run the tests, simply execute:
+
+```bash
+make test
+```
+
+This will run all PHPUnit tests defined in the `tests/` directory, ensuring that the bundle's functionality is working as expected, 
+ensuring the special order and conditions needed to properly test the database custom components and the generated column behavior.

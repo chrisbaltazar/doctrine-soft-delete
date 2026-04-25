@@ -1,5 +1,7 @@
 <?php
 
+const TEST_ROOT_DIR = __DIR__;
+
 use Symfony\Component\Dotenv\Dotenv;
 
 require dirname(__DIR__).'/vendor/autoload.php';

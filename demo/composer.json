@@ -89,7 +89,33 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "cache": "bin/console c:c -e test",
+        "test:smoke": [
+            "@db:clean",
+            "@db:migrate",
+            "@cache",
+            "bin/phpunit --group SoftDeleteSmoke"
+        ],
+        "test:unique": [
+            "@db:clean",
+            "@db:migrate",
+            "@patch",
+            "@db:diff",
+            "@db:migrate",
+            "@cache",
+            "bin/phpunit --group SoftDeleteUnique"
+        ],
+        "test:no-diff": [
+            "@db:clean",
+            "@db:migrate",
+            "@db:diff",
+            "bin/phpunit --group SoftDeleteNoDiff"
+        ],
+        "patch": "git apply --ignore-whitespace tests/Resources/User.patch",
+        "db:clean": "bin/console doctrine:database:drop --if-exists --force && bin/console doctrine:database:create",
+        "db:diff": "bin/console doctrine:migrations:diff --allow-empty-diff --quiet",
+        "db:migrate": "bin/console doctrine:migrations:migrate --no-interaction"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -101,7 +127,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.0",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",

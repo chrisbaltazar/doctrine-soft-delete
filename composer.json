@@ -9,6 +9,9 @@
         "doctrine/orm": "^3.6",
         "doctrine/doctrine-migrations-bundle": "^3.7"
     },
+    "scripts": {
+        "diff": "git -C demo diff --relative > demo/tests/Resources/$1"
+    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
