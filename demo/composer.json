@@ -90,7 +90,8 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "bin/console c:c -e test && bin/phpunit"
+        "test": "bin/console c:c -e test && bin/phpunit",
+        "patch": "git apply --ignore-whitespace tests/Resources/User.patch"
     },
     "conflict": {
         "symfony/symfony": "*"
