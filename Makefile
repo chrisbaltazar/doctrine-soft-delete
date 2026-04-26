@@ -28,13 +28,13 @@ demo-stop:
 	docker compose down -v
 
 test:
-	@echo "Running SoftDeleteSmoke tests (Basic functionality, soft deletion)..."
+	@echo "🚀 Running SoftDeleteSmoke tests (Basic functionality, soft deletion)..."
 	docker compose exec dsd-app composer test:smoke
-	@echo "Running SoftDeleteUnique tests (Apply uniqueness to soft deleted records)..."
+	@echo "🚀 Running SoftDeleteUnique tests (Apply uniqueness to soft deleted records)..."
 	docker compose exec dsd-app composer test:unique
-	@echo "Running SoftDeleteNoDiff tests (No diff is generated in the schema as expected)..."
+	@echo "🚀 Running SoftDeleteNoDiff tests (No diff is generated in the schema as expected)..."
 	docker compose exec dsd-app composer test:no-diff
-	@echo "Restoring project files to their original state..."
+	@echo "⚙️ Restoring project files to their original state..."
 	git restore . -- demo/ && git clean -fd -- demo/
 
 
