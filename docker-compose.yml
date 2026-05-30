@@ -1,6 +1,6 @@
 services:
   dsd-app:
-    image: chrisbaltazar/symfony-php-8.1
+    build: demo
     container_name: dsd-demo-app
     restart: unless-stopped
     volumes:
