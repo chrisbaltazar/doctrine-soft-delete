@@ -7,7 +7,8 @@
         "symfony/framework-bundle": "^6.4",
         "doctrine/doctrine-bundle": "^2.18",
         "doctrine/orm": "^3.6",
-        "doctrine/doctrine-migrations-bundle": "^3.7"
+        "doctrine/doctrine-migrations-bundle": "^3.7",
+        "doctrine/dbal": "^4.0"
     },
     "scripts": {
         "diff": "git -C demo diff --relative > demo/tests/Resources/$1"
